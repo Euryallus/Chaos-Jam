@@ -85,24 +85,17 @@ public class SpawnPoint : MonoBehaviour
             return;
         }
 
+        if(collisionObj.GetComponent<SpawnPoint>().direction == directionSpawn.centre)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
         if (collisionObj.CompareTag("SpawnPoint") && direction != directionSpawn.middle && direction != directionSpawn.centre)
         {
-            if (collisionObj.GetComponent<SpawnPoint>().spawned == false && spawned == false && collisionObj.GetComponent<SpawnPoint>().direction != directionSpawn.middle && collisionObj.GetComponent<SpawnPoint>().direction != directionSpawn.centre)
-            {
-                
-                GameObject newRoom = Instantiate(rooms.corner);
-                newRoom.transform.position = transform.position;
-                Destroy(collisionObj);
-                Destroy(gameObject);
-                return;
 
-            }
-            
-            
             Destroy(gameObject);
         }
-        
-        
     }
 
 }

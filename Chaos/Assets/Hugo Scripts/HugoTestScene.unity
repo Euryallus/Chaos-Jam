@@ -174,7 +174,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 4.99676
+  orthographic size: 28.960972
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -211,12 +211,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1402021160871207664, guid: 4466a1d29d03ae847802450e340280a1,
-        type: 3}
-      propertyPath: corner
-      value: 
-      objectReference: {fileID: 3394496676347542554, guid: f482c86184b635848b10cdd02d046ce2,
-        type: 3}
     - target: {fileID: 1402021160871207665, guid: 4466a1d29d03ae847802450e340280a1,
         type: 3}
       propertyPath: m_RootOrder
@@ -345,6 +339,46 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6791019276627182493, guid: ad116a78083ee7a4db05a866099469bc,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6791019276627182493, guid: ad116a78083ee7a4db05a866099469bc,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6791019276627182493, guid: ad116a78083ee7a4db05a866099469bc,
+        type: 3}
+      propertyPath: m_Offset.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6791019276627182493, guid: ad116a78083ee7a4db05a866099469bc,
+        type: 3}
+      propertyPath: m_Offset.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6791019276627182493, guid: ad116a78083ee7a4db05a866099469bc,
+        type: 3}
+      propertyPath: m_UsedByComposite
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6791019276627182494, guid: ad116a78083ee7a4db05a866099469bc,
+        type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7485509194172139243, guid: ad116a78083ee7a4db05a866099469bc,
+        type: 3}
+      propertyPath: spawned
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7485509194172139243, guid: ad116a78083ee7a4db05a866099469bc,
+        type: 3}
+      propertyPath: direction
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ad116a78083ee7a4db05a866099469bc, type: 3}
