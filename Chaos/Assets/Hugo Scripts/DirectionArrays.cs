@@ -19,4 +19,7 @@ public class DirectionArrays : MonoBehaviour
     [SerializeField]
     public GameObject corner;
 
+    [SerializeField]
+    public List<GameObject> items;
+
 }
