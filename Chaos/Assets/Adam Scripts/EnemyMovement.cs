@@ -11,7 +11,7 @@ public class EnemyMovement : MonoBehaviour
         patrol
     }
     
-    public float speed = 1.5;
+    public float speed = 1.5f;
 
     private GameObject  playerObject;
     private float       step;
