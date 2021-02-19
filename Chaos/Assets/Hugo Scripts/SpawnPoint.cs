@@ -29,7 +29,7 @@ public class SpawnPoint : MonoBehaviour
 
         if(direction != directionSpawn.middle)
         {
-            Invoke("Spawn", 0.5f);
+            Invoke("Spawn", 0.1f);
         }
     }
 

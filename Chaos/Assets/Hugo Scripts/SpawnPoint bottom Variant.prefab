@@ -25,7 +25,7 @@ PrefabInstance:
     - target: {fileID: 4987615694349331083, guid: e8848d6e6ced8744f84845d03a824725,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -10
+      value: -11
       objectReference: {fileID: 0}
     - target: {fileID: 4987615694349331083, guid: e8848d6e6ced8744f84845d03a824725,
         type: 3}
@@ -71,6 +71,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SpawnPoint bottom Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 4987615694349331084, guid: e8848d6e6ced8744f84845d03a824725,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 9000656003437850620, guid: e8848d6e6ced8744f84845d03a824725,
         type: 3}
