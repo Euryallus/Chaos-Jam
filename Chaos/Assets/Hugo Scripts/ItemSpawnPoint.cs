@@ -10,7 +10,7 @@ public class ItemSpawnPoint : MonoBehaviour
         itemList = GameObject.FindGameObjectWithTag("DirectionArrays").GetComponent<DirectionArrays>();
         int random = Random.Range(0, itemList.items.Count);
 
-        GameObject newItem = Instantiate(itemList.items[random]);
+        GameObject newItem = Instantiate(itemList.items[random], transform.parent);
 
         newItem.transform.position = transform.position;
 
