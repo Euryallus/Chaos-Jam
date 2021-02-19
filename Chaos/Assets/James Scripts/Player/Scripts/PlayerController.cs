@@ -24,9 +24,18 @@ public class PlayerController : MonoBehaviour
     [Tooltip("The animator for the player")]
     public Animator m_playerAnimator;
 
+    [Space]
+
+    [Header("Weapons")]
+    [Tooltip("The player's boomerang weapon")]
+    public GameObject m_playerBoomerang;
+
     #endregion
 
     #region PrivateVariables
+
+    // A boolean that determines whether or not the player is currently attacking
+    private bool m_isAttacking;
 
     // The current velocity of the player, determines the direction that they are moving in
     private Vector2 m_playerVelocity;
@@ -56,12 +65,16 @@ public class PlayerController : MonoBehaviour
         {
             case ( playerStates.alive ):
                 {
-                    // Calls the function to check for any keyboard inputs
-                    checkForInput( );
+
+                    if (!m_isAttacking)
+                    {
+                        // Calls the function to check for any keyboard inputs
+                        checkForInput();
+                    }
 
                     break;
                 }
-            case (playerStates.dead):
+            case ( playerStates.dead ):
                 {
 
                     break;
@@ -70,11 +83,26 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    public void meleeAttack( )
+    {
+        if( Physics2D.Raycast( transform.position, m_playerVelocity, 1 ))
+        {
+            Debug.Log("Enemy Hit!");
+        }
+    }
+
+    public void setIsAttackingToFalse( )
+    {
+        m_isAttacking = false;
+    }
+
     private void checkForInput()
     {
 
+        #region MovementControls
+
         // If the A key is pressed, the player turns to the left
-        if( Input.GetKeyDown( KeyCode.A ) )
+        if ( Input.GetKeyDown( KeyCode.A ) )
         {
 
             // Sets the weight of the current animation layer to 0 to "disable" it
@@ -133,6 +161,35 @@ public class PlayerController : MonoBehaviour
             // Triggers the player's animation to transition back to idle
             m_playerAnimator.SetBool( "isMoving", false );
         }
+
+        #endregion
+
+        #region CombatControls
+
+        if (!m_isAttacking)
+        {
+
+            if (Input.GetKeyDown(KeyCode.B))
+            {
+                // Sets isAttacking to true so that the player cannot move while attacking
+                m_isAttacking = true;
+
+                // Triggers the melee attack animation to play on the player
+                m_playerAnimator.SetTrigger("throwBoomerang");
+            }
+
+            else if (Input.GetKeyDown(KeyCode.P))
+            {
+                // Sets isAttacking to true so that the player cannot move while attacking
+                m_isAttacking = true;
+
+                // Triggers the melee attack animation to play on the player
+                m_playerAnimator.SetTrigger("meleeAttack");
+            }
+
+        }
+
+        #endregion
 
     }
 
