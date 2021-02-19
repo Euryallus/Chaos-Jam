@@ -10,6 +10,10 @@ public class PlayerController : MonoBehaviour
     [Header("Movement")]
     [Tooltip("The speed at which the player moves through the world.")]
     public float m_playerMoveSpeed;
+
+    [Tooltip("The RigidBody2D attached to this player.")]
+    public Rigidbody2D m_rigidBody;
+
     public enum playerStates { alive, dead };
 
     [Space]
@@ -96,6 +100,14 @@ public class PlayerController : MonoBehaviour
         m_isAttacking = false;
     }
 
+    public void throwBoomerang( )
+    {
+
+        // Enables the boomerang and calls its targeting function
+        m_playerBoomerang.SetActive(true);
+
+    }
+
     private void checkForInput()
     {
 
@@ -150,7 +162,7 @@ public class PlayerController : MonoBehaviour
         if( Input.GetKey( KeyCode.Space ) )
         {
             // Moves the player by their speed, in the direction defined by their velocity. Multiplied by deltaTime to make it framerate independent
-            transform.Translate(m_playerVelocity * m_playerMoveSpeed * Time.deltaTime);
+            m_rigidBody.velocity = m_playerVelocity * m_playerMoveSpeed * Time.fixedDeltaTime;
 
             // Triggers the player's animation to transition to walking
             m_playerAnimator.SetBool( "isMoving", true );
@@ -158,8 +170,13 @@ public class PlayerController : MonoBehaviour
         }
         else if( Input.GetKeyUp( KeyCode.Space ))
         {
+
+            // Resets the player's velocity to 0 so they don't continue to move
+            m_rigidBody.velocity = new Vector2( 0, 0);
+
             // Triggers the player's animation to transition back to idle
             m_playerAnimator.SetBool( "isMoving", false );
+
         }
 
         #endregion
