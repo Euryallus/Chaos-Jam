@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
+    public BoxCollider2D attackTrigger;
+
     public enum States
     {
         chase,
@@ -11,68 +13,90 @@ public class EnemyMovement : MonoBehaviour
         idle,
         patrol
     }
-    
-    public float speed = 1.5f;
 
-    private GameObject  playerObject;
-    private float       step;
-    private Vector2     targetPosition;
-    public  Vector3     targetDirection;
-    private States      state = States.idle;
-    private Animator    animator;
+    [SerializeField]
+    private States m_state = States.idle;
+
+    [SerializeField]
+    private float m_speed = 1.5f;
+
+    private GameObject  m_playerObject;
+    private float       m_step;
+    private Vector2     m_targetPosition;
+    
+    [SerializeField]
+    private  Vector3    m_targetDirection;
+    
+    private Animator    m_animator;
 
     // Start is called before the first frame update
     void Start()
     {
-        state = States.chase;
+        m_state = States.chase;
 
-        playerObject = GameObject.FindGameObjectWithTag("Player");
+        m_playerObject = GameObject.FindGameObjectWithTag("Player");
 
-        animator = GetComponent<Animator>();
+        m_animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        targetPosition = playerObject.transform.position;
+        m_targetPosition = m_playerObject.transform.position;
 
-        targetDirection = targetPosition - new Vector2(transform.position.x, transform.position.y);
+        m_targetDirection = m_targetPosition - new Vector2(transform.position.x, transform.position.y);
        
-        if (targetDirection.x > 0 && targetDirection.y <= 1.5 && targetDirection.y >= -1.5)
+        if (m_targetDirection.x > 0 && m_targetDirection.y <= 1.5 && m_targetDirection.y >= -1.5)
         {
-            animator.SetBool("LookingRight", true);
-            animator.SetBool("LookingLeft", false);
-            animator.SetBool("LookingUp", false);
-            animator.SetBool("LookingDown", false);
+            m_animator.SetBool("LookingRight", true);
+            m_animator.SetBool("LookingLeft", false);
+            m_animator.SetBool("LookingUp", false);
+            m_animator.SetBool("LookingDown", false);
         }
-        if (targetDirection.x < 0 && targetDirection.y <= 1.5 && targetDirection.y >= -1.5)
+        if (m_targetDirection.x < 0 && m_targetDirection.y <= 1.5 && m_targetDirection.y >= -1.5)
         {
-            animator.SetBool("LookingLeft", true);
-            animator.SetBool("LookingRight", false);
-            animator.SetBool("LookingUp", false);
-            animator.SetBool("LookingDown", false);
-        }
-
-        if (targetDirection.y > 0 && targetDirection.x <= 1.5 && targetDirection.x >= -1.5)
-        {
-            animator.SetBool("LookingUp", true);
-            animator.SetBool("LookingDown", false);
-            animator.SetBool("LookingLeft", false);
-            animator.SetBool("LookingRight", false);
-        }
-        if (targetDirection.y < 0 && targetDirection.x <= 1.5 && targetDirection.x >= -1.5)
-        {
-            animator.SetBool("LookingDown", true);
-            animator.SetBool("LookingUp", false);
-            animator.SetBool("LookingLeft", false);
-            animator.SetBool("LookingRight", false);
+            m_animator.SetBool("LookingLeft", true);
+            m_animator.SetBool("LookingRight", false);
+            m_animator.SetBool("LookingUp", false);
+            m_animator.SetBool("LookingDown", false);
         }
 
-        if (state == States.chase)
+        if (m_targetDirection.y > 0 && m_targetDirection.x <= 1.5 && m_targetDirection.x >= -1.5)
         {
-            step = speed * Time.deltaTime;
+            m_animator.SetBool("LookingUp", true);
+            m_animator.SetBool("LookingDown", false);
+            m_animator.SetBool("LookingLeft", false);
+            m_animator.SetBool("LookingRight", false);
+        }
+        if (m_targetDirection.y < 0 && m_targetDirection.x <= 1.5 && m_targetDirection.x >= -1.5)
+        {
+            m_animator.SetBool("LookingDown", true);
+            m_animator.SetBool("LookingUp", false);
+            m_animator.SetBool("LookingLeft", false);
+            m_animator.SetBool("LookingRight", false);
+        }
 
-            transform.position = Vector2.MoveTowards(transform.position, targetPosition, step);
+        if (m_state == States.chase)
+        {
+            m_step = m_speed * Time.deltaTime;
+
+            transform.position = Vector2.MoveTowards(transform.position, m_targetPosition, m_step);
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            m_state = States.attack;
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            m_state = States.chase;
         }
     }
 }
