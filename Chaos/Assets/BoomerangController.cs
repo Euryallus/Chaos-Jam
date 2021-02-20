@@ -110,10 +110,13 @@ public class BoomerangController : MonoBehaviour
 
         if( Vector2.Distance( transform.position, m_currentTargetsColliders[m_currentTargetIndex].gameObject.transform.position ) <= 0 )
         {
-            // Hurt the enemy here pls
+            // Accesses the enemy's script and reduces their health
+            m_currentTargetsColliders[m_currentTargetIndex].gameObject.GetComponent<EnemyMovement>( );
 
+            // Incremenets the target index to move on to the next enemy in the array
             m_currentTargetIndex++;
 
+            // If the end of the array has been reached, the function returns true so that the boomerang will return to the player
             if( m_currentTargetIndex >= m_currentTargetsColliders.Length)
             {
                 return true;

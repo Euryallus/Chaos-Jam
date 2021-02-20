@@ -544,6 +544,41 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1808200331747625177, guid: 87795379070bfb144ae529f9d1271e97,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 71.601105
+      objectReference: {fileID: 0}
+    - target: {fileID: 1808200331747625177, guid: 87795379070bfb144ae529f9d1271e97,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 8.950138
+      objectReference: {fileID: 0}
+    - target: {fileID: 1808200331747625177, guid: 87795379070bfb144ae529f9d1271e97,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 31
+      objectReference: {fileID: 0}
+    - target: {fileID: 1808200331747625177, guid: 87795379070bfb144ae529f9d1271e97,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 82
+      objectReference: {fileID: 0}
+    - target: {fileID: 1808200331747625182, guid: 87795379070bfb144ae529f9d1271e97,
+        type: 3}
+      propertyPath: m_Value
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1808200332216031645, guid: 87795379070bfb144ae529f9d1271e97,
+        type: 3}
+      propertyPath: m_currentHealth
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1808200332216031650, guid: 87795379070bfb144ae529f9d1271e97,
+        type: 3}
+      propertyPath: m_enemyLayer.m_Bits
+      value: 1024
+      objectReference: {fileID: 0}
     - target: {fileID: 1808200332891956526, guid: 87795379070bfb144ae529f9d1271e97,
         type: 3}
       propertyPath: m_AnchorMax.x

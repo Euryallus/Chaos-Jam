@@ -40,6 +40,9 @@ public class PlayerController : MonoBehaviour
     [Tooltip("The player's boomerang weapon")]
     public GameObject m_playerBoomerang;
 
+    [Tooltip("The layer on which the enemies sit.")]
+    public LayerMask m_enemyLayer;
+
     #endregion
 
     #region PrivateVariables
@@ -89,10 +92,13 @@ public class PlayerController : MonoBehaviour
 
     public void meleeAttack( )
     {
-        if( Physics2D.Raycast( transform.position, m_playerVelocity, 1 ))
+        RaycastHit2D rayHit = Physics2D.Raycast(transform.position, m_playerVelocity, 1, m_enemyLayer );
+
+        if( rayHit.collider != null)
         {
-            Debug.Log("Enemy Hit!");
+            rayHit.collider.gameObject.GetComponent<EnemyMovement>( );
         }
+
     }
 
     public void throwBoomerang( )
@@ -170,6 +176,9 @@ public class PlayerController : MonoBehaviour
 
             // Resets the player's velocity to 0 so they don't continue to move
             m_rigidBody.velocity = new Vector2( 0, 0);
+
+            // Triggers the player's animation to transition back to idle
+            m_playerAnimator.SetBool("isMoving", false);
 
             // Triggers the player's animation to transition back to idle
             m_playerAnimator.SetBool( "isMoving", false );
