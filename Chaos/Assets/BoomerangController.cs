@@ -60,6 +60,7 @@ public class BoomerangController : MonoBehaviour
         }
         else
         {
+            Debug.Log("Found targets!");
             sortTargetsByClosest( );
             m_hasFoundTargets = true;
         }
@@ -71,6 +72,8 @@ public class BoomerangController : MonoBehaviour
 
         m_hasFoundTargets = false;
 
+        m_currentTargetIndex = 0;
+
     }
 
     // Update is called once per frame
@@ -78,7 +81,7 @@ public class BoomerangController : MonoBehaviour
     {
         if ( !m_hasFoundTargets && !m_isReturning )
         {
-            if( Vector2.Distance( transform.position, m_playerObject.transform.position ) > 5 )
+            if( Vector2.Distance( transform.position, m_playerObject.transform.position ) > m_throwRange )
             {
                 m_isReturning = true;
             }
@@ -87,9 +90,12 @@ public class BoomerangController : MonoBehaviour
                 transform.Translate(m_moveDirection * m_moveSpeed * Time.deltaTime);
             }
         }
-        else if( !m_hasFoundTargets && !m_isReturning )
+        else if( m_hasFoundTargets && !m_isReturning )
         {
-            
+            if( attackEnemies( ) )
+            {
+                m_isReturning = true;
+            }
         }
         else if (m_isReturning)
         {
@@ -97,7 +103,33 @@ public class BoomerangController : MonoBehaviour
         }
     }
 
-    private bool lerpToTarget( Transform targetTransform)
+    private bool attackEnemies( )
+    {
+
+        transform.position = Vector2.MoveTowards( transform.position, m_currentTargetsColliders[m_currentTargetIndex].gameObject.transform.position, m_moveSpeed * Time.deltaTime );
+
+        if( Vector2.Distance( transform.position, m_currentTargetsColliders[m_currentTargetIndex].gameObject.transform.position ) <= 0 )
+        {
+            // Hurt the enemy here pls
+
+            m_currentTargetIndex++;
+
+            if( m_currentTargetIndex >= m_currentTargetsColliders.Length)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    private bool moveToTarget( Transform targetTransform)
     {
 
         if( Vector2.Distance( transform.position, targetTransform.position ) > Mathf.Epsilon )
@@ -113,9 +145,18 @@ public class BoomerangController : MonoBehaviour
 
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == 11)
+        {
+            Debug.Log("Triggered! It was: " + collision.gameObject.name);
+            m_isReturning = true;
+        }
+    }
+
     private void returnToPlayer( )
     {
-        if( lerpToTarget( m_playerObject.transform ) )
+        if( moveToTarget( m_playerObject.transform ) )
         {
             gameObject.SetActive( false );
         }
@@ -125,25 +166,35 @@ public class BoomerangController : MonoBehaviour
     {
         int i, j;
         int N = m_currentTargetsColliders.Length;
+        float numSwaps = 0;
+        bool hasSwapped = true;
 
-        for( j = N - 1; j > 0; j--)
+        while (hasSwapped)
         {
-            for( i = 0; i < j; i++)
+
+            for (j = N - 1; j > 0; j--)
             {
-                // Calculates the distance between the current collider and the boomerang
-                Vector2 colliderOnePos = new Vector2( m_currentTargetsColliders[i].gameObject.transform.position.x, m_currentTargetsColliders[i].gameObject.transform.position.y );
-                Vector2 colliderOneDistanceFromRang = new Vector2( colliderOnePos.x - transform.position.x, colliderOnePos.y - transform.position.y );
-
-                // Calculates the distance between the current collider and the boomerang
-                Vector2 colliderTwoPos = new Vector2(m_currentTargetsColliders[i + 1].gameObject.transform.position.x, m_currentTargetsColliders[i + 1].gameObject.transform.position.y);
-                Vector2 colliderTwoDistanceFromRang = new Vector2(colliderTwoPos.x - transform.position.x, colliderTwoPos.y - transform.position.y);
-
-                //If the distance between the current boomerang is greater than the next in the array, the two are swapped around
-                if ( colliderOneDistanceFromRang.x > colliderTwoDistanceFromRang.x && colliderOneDistanceFromRang.y > colliderTwoDistanceFromRang.y )
+                for (i = 0; i < j; i++)
                 {
-                    swapValues(m_currentTargetsColliders, i, i + 1 );
+                    // Calculates the distance between the current collider and the boomerang
+                    float colliderOneDistanceFromRang = Vector2.Distance(m_currentTargetsColliders[i].gameObject.transform.position, transform.position);
+
+                    // Calculates the distance between the current collider and the boomerang
+                    float colliderTwoDistanceFromRang = Vector2.Distance(m_currentTargetsColliders[i].gameObject.transform.position, transform.position);
+
+                    // If the distance between the current boomerang is greater than the next in the array, the two are swapped around
+                    if (colliderOneDistanceFromRang > colliderTwoDistanceFromRang)
+                    {
+                        swapValues(m_currentTargetsColliders, i, i + 1);
+                    }
+                }
+                // If no swaps have been performed, then the array is sorted and the loop can be broken
+                if (numSwaps == 0)
+                {
+                    hasSwapped = false;
                 }
             }
+
         }
 
     }

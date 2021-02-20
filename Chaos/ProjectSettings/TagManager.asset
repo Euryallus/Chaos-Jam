@@ -7,6 +7,7 @@ TagManager:
   - SpawnPoint
   - DirectionArrays
   - RoomSwitch
+  - Boomerang
   layers:
   - Default
   - TransparentFX
@@ -19,7 +20,7 @@ TagManager:
   - RoomSpawn
   - Player
   - Enemies
-  - 
+  - Walls
   - 
   - 
   - 

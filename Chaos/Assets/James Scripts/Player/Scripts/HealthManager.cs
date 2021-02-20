@@ -38,4 +38,14 @@ public class HealthManager : MonoBehaviour
     {
         
     }
+
+    public void takeDamage( int damageRecieved)
+    {
+        m_currentHealth -= damageRecieved;
+        if( m_currentHealth <= 0)
+        {
+            m_playerController.m_currentPlayerState = PlayerController.playerStates.dead;
+        }
+    }
+
 }
