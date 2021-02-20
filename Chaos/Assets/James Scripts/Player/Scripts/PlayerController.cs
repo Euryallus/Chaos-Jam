@@ -96,7 +96,7 @@ public class PlayerController : MonoBehaviour
 
         if( rayHit.collider != null)
         {
-            rayHit.collider.gameObject.GetComponent<EnemyMovement>( );
+            rayHit.collider.gameObject.GetComponent<EnemyHealthManager>( ).TakeDamage( );
         }
 
     }

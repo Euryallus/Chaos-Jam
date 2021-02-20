@@ -121,12 +121,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &194304690 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1808200333476484763, guid: 87795379070bfb144ae529f9d1271e97,
-    type: 3}
-  m_PrefabInstance: {fileID: 382530086}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &382530086
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -425,20 +419,5 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bat
       objectReference: {fileID: 0}
-    - target: {fileID: 9043493206256993272, guid: 9d7f92dd2b068e24c92b76d4a361e469,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9043493206256993275, guid: 9d7f92dd2b068e24c92b76d4a361e469,
-        type: 3}
-      propertyPath: playerObject
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 9043493206256993275, guid: 9d7f92dd2b068e24c92b76d4a361e469,
-        type: 3}
-      propertyPath: targetObject
-      value: 
-      objectReference: {fileID: 194304690}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9d7f92dd2b068e24c92b76d4a361e469, type: 3}
