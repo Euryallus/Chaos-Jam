@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
-    public BoxCollider2D attackTrigger;
+    public BoxCollider2D m_attackTrigger;
 
     public enum States
     {
@@ -15,13 +15,17 @@ public class EnemyMovement : MonoBehaviour
     }
 
     [SerializeField]
-    private States m_state = States.idle;
+    private States      m_state = States.idle;
 
     [SerializeField]
-    private float m_speed = 1.5f;
+    private float       m_speed = 1.5f;
+
+    [SerializeField]
+    private int         m_dps = 1;
 
     private GameObject  m_playerObject;
     private float       m_step;
+    private float       m_attackTimer;
     private Vector2     m_targetPosition;
     
     [SerializeField]
@@ -81,6 +85,17 @@ public class EnemyMovement : MonoBehaviour
             m_step = m_speed * Time.deltaTime;
 
             transform.position = Vector2.MoveTowards(transform.position, m_targetPosition, m_step);
+        }
+
+        if(m_state == States.attack)
+        {
+            m_attackTimer += Time.deltaTime;
+
+            if(m_attackTimer >= 1)
+            {
+                m_playerObject.GetComponent<HealthManager>().takeDamage(m_dps);
+                m_attackTimer = 0;
+            }
         }
     }
 

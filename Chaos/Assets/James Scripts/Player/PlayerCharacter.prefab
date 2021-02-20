@@ -267,6 +267,9 @@ MonoBehaviour:
   m_isAttacking: 0
   m_playerAnimator: {fileID: 1808200332216031648}
   m_playerBoomerang: {fileID: 4489257038894883677}
+  m_enemyLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &1808200332216031645
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -281,6 +284,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_playerController: {fileID: 1808200332216031650}
   m_currentHealth: 10
+  m_healthBar: {fileID: 1808200331747625182}
 --- !u!95 &1808200332216031648
 Animator:
   serializedVersion: 3
