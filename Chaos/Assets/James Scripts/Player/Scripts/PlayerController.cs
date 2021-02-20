@@ -11,6 +11,9 @@ public class PlayerController : MonoBehaviour
     [Tooltip("The speed at which the player moves through the world.")]
     public float m_playerMoveSpeed;
 
+    [Tooltip("The current velocity of the player, determines the direction that they are moving in.")]
+    public Vector2 m_playerVelocity;
+
     [Tooltip("The RigidBody2D attached to this player.")]
     public Rigidbody2D m_rigidBody;
 
@@ -21,6 +24,9 @@ public class PlayerController : MonoBehaviour
     [Header("Player States")]
     [Tooltip("The current state of the player. Determines what actions they are able to perform, as well as how their update function executes.")]
     public playerStates m_currentPlayerState;
+
+    [Tooltip("A boolean that determines whether or not the player is currently attacking.")]
+    public bool m_isAttacking;
 
     [Space]
 
@@ -37,12 +43,6 @@ public class PlayerController : MonoBehaviour
     #endregion
 
     #region PrivateVariables
-
-    // A boolean that determines whether or not the player is currently attacking
-    private bool m_isAttacking;
-
-    // The current velocity of the player, determines the direction that they are moving in
-    private Vector2 m_playerVelocity;
 
     private int m_currentVelocityIndex;
 
@@ -93,11 +93,6 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("Enemy Hit!");
         }
-    }
-
-    public void setIsAttackingToFalse( )
-    {
-        m_isAttacking = false;
     }
 
     public void throwBoomerang( )
@@ -186,22 +181,26 @@ public class PlayerController : MonoBehaviour
         if (!m_isAttacking)
         {
 
-            if (Input.GetKeyDown(KeyCode.B))
+            if ( Input.GetKeyDown( KeyCode.B ) )
             {
-                // Sets isAttacking to true so that the player cannot move while attacking
-                m_isAttacking = true;
+
+                // Sets the player's velocity to 0 so that the player cannot move while attacking
+                m_rigidBody.velocity = new Vector2( 0, 0 );
 
                 // Triggers the melee attack animation to play on the player
                 m_playerAnimator.SetTrigger("throwBoomerang");
+
             }
 
-            else if (Input.GetKeyDown(KeyCode.P))
+            else if ( Input.GetKeyDown( KeyCode.P ) )
             {
-                // Sets isAttacking to true so that the player cannot move while attacking
-                m_isAttacking = true;
+
+                // Sets the player's velocity to 0 so that the player cannot move while attacking
+                m_rigidBody.velocity = new Vector2(0, 0);
 
                 // Triggers the melee attack animation to play on the player
                 m_playerAnimator.SetTrigger("meleeAttack");
+
             }
 
         }

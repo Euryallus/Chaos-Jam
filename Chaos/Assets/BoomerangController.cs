@@ -14,21 +14,36 @@ public class BoomerangController : MonoBehaviour
     [Tooltip("The speed at which the boomerang moves when in flight.")]
     public float m_moveSpeed;
 
+    [Tooltip("The direction in which the boomerang will move. Inherited from the player.")]
+    public Vector2 m_moveDirection;
+
+    [Tooltip("The player object. Used to inherit information about the player.")]
+    public GameObject m_playerObject;
+
     [Tooltip("Determines whether or not the boomerang has found any targets, dicating how it moves.")]
     public bool m_hasFoundTargets;
 
     [Space]
 
+    [Header("Physics")]
+    [Tooltip("The physics layer of the enemies.")]
+    public LayerMask m_enemyLayer; 
+
+
     #endregion
 
     #region PrivateVariables
+
     private Collider2D[] m_currentTargetsColliders;
 
     #endregion
 
     private void OnEnable()
     {
-        m_currentTargetsColliders = Physics2D.OverlapCircleAll(transform.position, m_throwRange);
+
+        m_moveDirection = m_playerObject.GetComponent<PlayerController>().m_playerVelocity;
+
+        m_currentTargetsColliders = Physics2D.OverlapCircleAll( transform.position, m_throwRange, m_enemyLayer );
 
         if( m_currentTargetsColliders.Length == 0)
         {
@@ -47,11 +62,15 @@ public class BoomerangController : MonoBehaviour
     {
         if ( !m_hasFoundTargets )
         {
-            transform.Translate( new Vector2( 0, 1 ) * m_moveSpeed * Time.deltaTime );
+            if(  )
+            {
+                
+            }
+            else
+            {
+                transform.Translate(m_moveDirection * m_moveSpeed * Time.deltaTime);
+            }
         }
-
-        transform.Rotate( transform.up * m_moveSpeed );
-
     }
 
     private void sortTargetsByClosest( )
