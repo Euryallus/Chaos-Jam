@@ -335,6 +335,10 @@ PrefabInstance:
       propertyPath: m_moveSpeed
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 923759111, guid: 87795379070bfb144ae529f9d1271e97, type: 3}
+      propertyPath: m_playerObject
+      value: 
+      objectReference: {fileID: 1666327578}
     - target: {fileID: 2009905057, guid: 87795379070bfb144ae529f9d1271e97, type: 3}
       propertyPath: camera
       value: 
@@ -695,4 +699,10 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6791019275682552043, guid: ad116a78083ee7a4db05a866099469bc,
     type: 3}
   m_PrefabInstance: {fileID: 1270913849}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1666327578 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1808200332216031647, guid: 87795379070bfb144ae529f9d1271e97,
+    type: 3}
+  m_PrefabInstance: {fileID: 1060884302}
   m_PrefabAsset: {fileID: 0}
