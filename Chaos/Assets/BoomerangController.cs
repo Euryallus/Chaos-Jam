@@ -17,22 +17,30 @@ public class BoomerangController : MonoBehaviour
     [Tooltip("The direction in which the boomerang will move. Inherited from the player.")]
     public Vector2 m_moveDirection;
 
+    [Tooltip("The velocity used when the boomerang returns to the player.")]
+    public Vector2 m_returnVelocity = Vector2.zero;
+
     [Tooltip("The player object. Used to inherit information about the player.")]
     public GameObject m_playerObject;
 
     [Tooltip("Determines whether or not the boomerang has found any targets, dicating how it moves.")]
     public bool m_hasFoundTargets;
 
+    [Tooltip("Determines whether or not the boomerang is currently returning to the player")]
+    public bool m_isReturning;
+
     [Space]
 
     [Header("Physics")]
     [Tooltip("The physics layer of the enemies.")]
-    public LayerMask m_enemyLayer; 
+    public LayerMask m_enemyLayer;
 
 
     #endregion
 
     #region PrivateVariables
+
+    private int m_currentTargetIndex;
 
     private Collider2D[] m_currentTargetsColliders;
 
@@ -57,19 +65,59 @@ public class BoomerangController : MonoBehaviour
         }
     }
 
+    private void OnDisable()
+    {
+        m_isReturning = false;
+
+        m_hasFoundTargets = false;
+
+    }
+
     // Update is called once per frame
     void Update()
     {
-        if ( !m_hasFoundTargets )
+        if ( !m_hasFoundTargets && !m_isReturning )
         {
-            if(  )
+            if( Vector2.Distance( transform.position, m_playerObject.transform.position ) > 5 )
             {
-                
+                m_isReturning = true;
             }
             else
             {
                 transform.Translate(m_moveDirection * m_moveSpeed * Time.deltaTime);
             }
+        }
+        else if( !m_hasFoundTargets && !m_isReturning )
+        {
+            
+        }
+        else if (m_isReturning)
+        {
+            returnToPlayer( );
+        }
+    }
+
+    private bool lerpToTarget( Transform targetTransform)
+    {
+
+        if( Vector2.Distance( transform.position, targetTransform.position ) > Mathf.Epsilon )
+        {
+            transform.position = Vector2.MoveTowards(transform.position, targetTransform.position, m_moveSpeed * Time.deltaTime );
+            return false;
+        }
+        else
+        {
+            transform.position = targetTransform.position;
+            return true;
+        }
+
+    }
+
+    private void returnToPlayer( )
+    {
+        if( lerpToTarget( m_playerObject.transform ) )
+        {
+            gameObject.SetActive( false );
         }
     }
 

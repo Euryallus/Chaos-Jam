@@ -97,6 +97,8 @@ public class PlayerController : MonoBehaviour
 
     public void throwBoomerang( )
     {
+        // Sets the position of the boomerang to that of the player
+        m_playerBoomerang.transform.position = transform.position;
 
         // Enables the boomerang and calls its targeting function
         m_playerBoomerang.SetActive(true);
