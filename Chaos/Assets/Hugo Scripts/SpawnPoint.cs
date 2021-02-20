@@ -85,7 +85,7 @@ public class SpawnPoint : MonoBehaviour
             return;
         }
 
-        if(collisionObj.GetComponent<SpawnPoint>().direction == directionSpawn.centre)
+        if(collisionObj.GetComponent<SpawnPoint>() && collisionObj.GetComponent<SpawnPoint>().direction == directionSpawn.centre)
         {
             Destroy(gameObject);
             return;
