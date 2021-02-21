@@ -1082,6 +1082,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: LRUD
       objectReference: {fileID: 0}
+    - target: {fileID: 6791019275682552043, guid: ad116a78083ee7a4db05a866099469bc,
+        type: 3}
+      propertyPath: m_TagString
+      value: SpawnRoom
+      objectReference: {fileID: 0}
     - target: {fileID: 6791019275682552044, guid: ad116a78083ee7a4db05a866099469bc,
         type: 3}
       propertyPath: m_RootOrder
