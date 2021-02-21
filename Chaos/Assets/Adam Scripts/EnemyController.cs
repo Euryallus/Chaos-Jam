@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyMovement : MonoBehaviour
+public class EnemyController : MonoBehaviour
 {
     public enum States
     {
@@ -25,11 +25,13 @@ public class EnemyMovement : MonoBehaviour
     private float       m_step;
     private float       m_attackTimer;
     private Vector2     m_targetPosition;
+    private Vector2     m_velocity;
     
     [SerializeField]
-    private  Vector3    m_targetDirection;
+    private Vector2     m_targetDirection;
     
     private Animator    m_animator;
+    private Rigidbody2D m_rigidbody;
 
     // Start is called before the first frame update
     void Start()
@@ -37,6 +39,8 @@ public class EnemyMovement : MonoBehaviour
         m_playerObject = GameObject.FindGameObjectWithTag("Player");
 
         m_animator = GetComponent<Animator>();
+
+        m_rigidbody = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -45,7 +49,49 @@ public class EnemyMovement : MonoBehaviour
         m_targetPosition = m_playerObject.transform.position;
 
         m_targetDirection = m_targetPosition - new Vector2(transform.position.x, transform.position.y);
-       
+
+        Animate();
+
+        if (Vector2.Distance(transform.position, m_targetPosition) < 8 && m_state == States.idle)
+        {
+            m_state = States.chase;
+        }
+
+        if (m_state == States.chase)
+        {
+            if (Vector2.Distance(transform.position, m_targetPosition) < 0.8)
+            {
+                m_state = States.attack;
+            }
+
+            m_rigidbody.velocity = m_targetDirection * m_speed * Time.deltaTime;
+        }
+
+        if(m_state == States.attack)
+        {
+            Attack();
+        }
+    }
+
+    public virtual void Attack()
+    {
+        if (Vector2.Distance(transform.position, m_targetPosition) > 1)
+        {
+            m_state = States.chase;
+        }
+
+        m_attackTimer += Time.deltaTime;
+        m_rigidbody.velocity = new Vector2(0, 0);
+
+        if (m_attackTimer >= 1)
+        {
+            m_playerObject.GetComponent<HealthManager>().takeDamage(m_dps);
+            m_attackTimer = 0;
+        }
+    }
+
+    public virtual void Animate()
+    {
         if (m_targetDirection.x > 0 && m_targetDirection.y <= 1.5 && m_targetDirection.y >= -1.5)
         {
             m_animator.SetLayerWeight(4, 1);
@@ -74,39 +120,6 @@ public class EnemyMovement : MonoBehaviour
             m_animator.SetLayerWeight(1, 0);
             m_animator.SetLayerWeight(3, 0);
             m_animator.SetLayerWeight(4, 0);
-        }
-
-        if (Vector2.Distance(transform.position, m_targetPosition) < 8 && m_state == States.idle)
-        {
-            m_state = States.chase;
-        }
-
-        if (m_state == States.chase)
-        {
-            if (Vector2.Distance(transform.position, m_targetPosition) < 0.8)
-            {
-                m_state = States.attack;
-            }
-
-            m_step = m_speed * Time.deltaTime;
-
-            transform.position = Vector2.MoveTowards(transform.position, m_targetPosition, m_step);
-        }
-
-        if(m_state == States.attack)
-        {
-            if (Vector2.Distance(transform.position, m_targetPosition) > 1)
-            {
-                m_state = States.chase;
-            }
-
-            m_attackTimer += Time.deltaTime;
-
-            if(m_attackTimer >= 1)
-            {
-                m_playerObject.GetComponent<HealthManager>().takeDamage(m_dps);
-                m_attackTimer = 0;
-            }
         }
     }
 }
