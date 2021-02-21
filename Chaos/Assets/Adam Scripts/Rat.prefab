@@ -136,6 +136,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_currentHealth: 1
   m_maxHealth: 1
+  m_deathSound: {fileID: 8300000, guid: 1f1ba1d44e7ce5a4e9eef9ecb4a809d2, type: 3}
 --- !u!61 &-708269536979744469
 BoxCollider2D:
   m_ObjectHideFlags: 0

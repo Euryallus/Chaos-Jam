@@ -22,10 +22,8 @@ public class EnemyController : MonoBehaviour
     private int         m_dps = 1;
 
     private GameObject  m_playerObject;
-    private float       m_step;
     private float       m_attackTimer;
     private Vector2     m_targetPosition;
-    private Vector2     m_velocity;
     
     [SerializeField]
     private Vector2     m_targetDirection;
@@ -59,7 +57,7 @@ public class EnemyController : MonoBehaviour
 
         if (m_state == States.chase)
         {
-            if (Vector2.Distance(transform.position, m_targetPosition) < 0.8)
+            if (Vector2.Distance(transform.position, m_targetPosition) < 1)
             {
                 m_state = States.attack;
             }
