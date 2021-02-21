@@ -25,13 +25,20 @@ public class PlayerController : MonoBehaviour
     [Tooltip("The current state of the player. Determines what actions they are able to perform, as well as how their update function executes.")]
     public playerStates m_currentPlayerState;
 
+    [Tooltip("The player's health manager script.")]
+    public HealthManager m_healthManager;
+
     [Tooltip("A boolean that determines whether or not the player is currently attacking.")]
     public bool m_isAttacking;
 
     [Space]
 
     [Header("Experience Points")]
+    [Tooltip("The player's XP Manager Script.")]
     public XPManager m_xpManager;
+
+    [Tooltip("The Corpse Controller script attached to the player's corpse gameobject.")]
+    public CorpseController m_corpseController;
 
     [Space]
 
@@ -44,6 +51,15 @@ public class PlayerController : MonoBehaviour
     [Header("Animation")]
     [Tooltip("The animator for the player")]
     public Animator m_playerAnimator;
+
+    [Space]
+
+    [Header("User Interface")]
+    [Tooltip("The player's HUD canvas.")]
+    public GameObject m_hudCanvas;
+
+    [Tooltip("The blackout screen shown when the player dies.")]
+    public BlackoutController m_blackoutScreen;
 
     [Space]
 
@@ -101,6 +117,19 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    public void enterDeathState( )
+    {
+
+        gameObject.GetComponent<SpriteRenderer>().enabled = false;
+
+        m_hudCanvas.SetActive( false );
+
+        m_corpseController.createCorpse( m_xpManager.m_totalXP, m_xpManager.m_currentLevel, transform );
+
+        m_currentPlayerState = playerStates.dead;
+
+    }
+
     public void meleeAttack( )
     {
         RaycastHit2D rayHit = Physics2D.Raycast(transform.position, m_playerVelocity, 1, m_enemyLayer );
@@ -112,6 +141,25 @@ public class PlayerController : MonoBehaviour
                 m_xpManager.gainXP( );
             }
         }
+
+    }
+
+    public void respawnPlayer( )
+    {
+
+        // Resets the player character's position to the initial room
+        transform.position = transform.parent.position;
+
+        // Resets them player's XP values
+        m_xpManager.resetXP( );
+
+        m_healthManager.resetHealth( );
+
+        gameObject.GetComponent<SpriteRenderer>().enabled = true;
+
+        StartCoroutine( waitToFade( ) );
+
+        m_currentPlayerState = playerStates.alive;
 
     }
 
@@ -234,6 +282,17 @@ public class PlayerController : MonoBehaviour
         }
 
         #endregion
+
+    }
+
+    private IEnumerator waitToFade()
+    {
+
+        yield return new WaitForSecondsRealtime(5);
+
+        m_hudCanvas.SetActive(true);
+
+        m_blackoutScreen.m_fadingOut = true;
 
     }
 

@@ -13,6 +13,9 @@ public class XPManager : MonoBehaviour
     [Tooltip("The number of XP that the player has currently gained.")]
     public int m_currentXP;
 
+    [Tooltip("The total amount of XP that the player has gained thus far.")]
+    public int m_totalXP;
+
     [Tooltip("The player's current XP level.")]
     public int m_currentLevel;
 
@@ -38,7 +41,7 @@ public class XPManager : MonoBehaviour
     public Text m_currentLevelText;
 
     // The amount of XP required for the player to level up.
-    private const int m_xpToNextLevel = 500;
+    private const int m_xpToNextLevel = 125;
 
     #endregion
 
@@ -47,11 +50,7 @@ public class XPManager : MonoBehaviour
         // Sets the player's current level to 1
         m_currentLevel = 1;
 
-        m_XPSlider.value = m_currentXP;
-
-        m_currentXPText.text = m_currentXP.ToString( ) + " / " + m_xpToNextLevel.ToString( );
-
-        m_currentLevelText.text = "Level: " + m_currentLevel.ToString( );
+        updateUI( );
 
     }
 
@@ -73,33 +72,22 @@ public class XPManager : MonoBehaviour
                 // Resets the player's current XP points to 0 + the amount they went over the next level threshold
                 m_currentXP -= m_xpToNextLevel;
 
-                // Updates the player's XP Bar to use the new value
-                m_XPSlider.value = m_currentXP;
-
-                // Updates the content of the XP Text UI to use the new XP value
-                m_currentXPText.text = m_currentXP.ToString() + " / " + m_xpToNextLevel.ToString();
-
-                // Sets the text of the Level UI element to reflect the player's new XP level
-                m_currentLevelText.text = "Level: " + m_currentLevel.ToString();
-
                 // Plays the Level Up sound to alert the layer that they have levelled up
                 m_levelUpSound.Play( );
 
             }
 
-            // Updates the value of the XP slider bar
-            m_XPSlider.value = m_currentXP;
-
-            // Updates the currentXP text to use the new value
-            m_currentXPText.text = m_currentXP.ToString() + " / " + m_xpToNextLevel.ToString();
+            updateUI( );
 
             yield return new WaitForSeconds(m_xpGainDelay);
         }
 
     }
 
-    public void gainXP( int xpGained = 260 )
+    public void gainXP( int xpGained = 15 )
     {
+
+        m_totalXP += xpGained;
 
         StartCoroutine( AddExperience( xpGained ) );
 
@@ -108,6 +96,39 @@ public class XPManager : MonoBehaviour
             m_xpGainSound.Play( );
         }
 
+    }
+
+    public void reclaimXP( int reclaimedXP )
+    {
+
+        gainXP( reclaimedXP );
+
+        updateUI( );
+
+    }
+
+    public void resetXP( )
+    {
+        m_currentXP = 0;
+
+        m_totalXP = 0;
+
+        m_currentLevel = 1;
+
+        updateUI( );
+
+    }
+
+    public void updateUI( )
+    {
+        // Updates the player's XP Bar to use the new value
+        m_XPSlider.value = m_currentXP;
+
+        // Updates the content of the XP Text UI to use the new XP value
+        m_currentXPText.text = m_currentXP.ToString() + " / " + m_xpToNextLevel.ToString();
+
+        // Sets the text of the Level UI element to reflect the player's new XP level
+        m_currentLevelText.text = "Level: " + m_currentLevel.ToString();
     }
 
 }
