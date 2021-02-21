@@ -963,6 +963,12 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1402021160871207664, guid: 4466a1d29d03ae847802450e340280a1,
         type: 3}
+      propertyPath: corner
+      value: 
+      objectReference: {fileID: 1548419147694317204, guid: f482c86184b635848b10cdd02d046ce2,
+        type: 3}
+    - target: {fileID: 1402021160871207664, guid: 4466a1d29d03ae847802450e340280a1,
+        type: 3}
       propertyPath: items.Array.size
       value: 6
       objectReference: {fileID: 0}

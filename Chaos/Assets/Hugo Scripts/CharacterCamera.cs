@@ -11,7 +11,6 @@ public class CharacterCamera : MonoBehaviour
     {
         if(collision.CompareTag("RoomSwitch"))
         {
-            Debug.Log(collision.transform.parent.gameObject.name);
 
             if(collision.transform.parent.gameObject.GetComponent<miniMapCover>())
             {

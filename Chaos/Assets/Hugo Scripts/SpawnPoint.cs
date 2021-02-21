@@ -79,23 +79,37 @@ public class SpawnPoint : MonoBehaviour
     {
         GameObject collisionObj = collision.gameObject;
 
-        if(direction == directionSpawn.centre)
+        if(collisionObj.GetComponent<SpawnPoint>())
         {
-            Destroy(collision.gameObject);
-            return;
+            if(collisionObj.GetComponent<SpawnPoint>().direction == directionSpawn.centre || collisionObj.GetComponent<SpawnPoint>().direction == directionSpawn.middle)
+            {
+                Destroy(gameObject);
+                return;
+            }
+
+            if (direction == directionSpawn.centre || direction == directionSpawn.middle )
+            {
+                Destroy(collision.gameObject);
+                return;
+            }
+       
+            if (collisionObj.GetComponent<SpawnPoint>().spawned == false && spawned == false)
+            {
+                if (collisionObj.CompareTag("SpawnPoint") && direction != directionSpawn.middle && direction != directionSpawn.centre)
+                {
+                    if (transform.position != GameObject.FindGameObjectWithTag("SpawnRoom").transform.position)
+                    {
+                        GameObject newRoom = Instantiate(rooms.corner);
+                        newRoom.transform.position = transform.position;
+
+                        Destroy(collisionObj);
+                        Destroy(gameObject);
+                        return;
+                    }
+                }
+            }
         }
 
-        if(collisionObj.GetComponent<SpawnPoint>() && collisionObj.GetComponent<SpawnPoint>().direction == directionSpawn.centre)
-        {
-            Destroy(gameObject);
-            return;
-        }
-
-        if (collisionObj.CompareTag("SpawnPoint") && direction != directionSpawn.middle && direction != directionSpawn.centre)
-        {
-
-            Destroy(gameObject);
-        }
     }
 
 }

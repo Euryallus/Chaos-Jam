@@ -8,6 +8,7 @@ TagManager:
   - DirectionArrays
   - RoomSwitch
   - Boomerang
+  - SpawnRoom
   layers:
   - Default
   - TransparentFX
