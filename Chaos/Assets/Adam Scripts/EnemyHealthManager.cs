@@ -9,6 +9,8 @@ public class EnemyHealthManager : MonoBehaviour
     [SerializeField]
     private int  m_maxHealth = 1;
 
+    public AudioClip m_deathSound;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,6 +23,7 @@ public class EnemyHealthManager : MonoBehaviour
         if(m_currentHealth <= 0)
         {
             gameObject.SetActive(false);
+            AudioSource.PlayClipAtPoint(m_deathSound, transform.position);
             return true;
         }
         else
