@@ -42,6 +42,7 @@ public class BoomerangController : MonoBehaviour
 
     private int m_currentTargetIndex;
 
+    [SerializeField]
     private Collider2D[] m_currentTargetsColliders;
 
     #endregion
