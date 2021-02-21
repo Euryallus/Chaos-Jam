@@ -34,8 +34,6 @@ public class EnemyMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        m_state = States.chase;
-
         m_playerObject = GameObject.FindGameObjectWithTag("Player");
 
         m_animator = GetComponent<Animator>();
@@ -50,45 +48,46 @@ public class EnemyMovement : MonoBehaviour
        
         if (m_targetDirection.x > 0 && m_targetDirection.y <= 1.5 && m_targetDirection.y >= -1.5)
         {
-            m_animator.SetBool("LookingRight", true);
-            m_animator.SetBool("LookingLeft", false);
-            m_animator.SetBool("LookingUp", false);
-            m_animator.SetBool("LookingDown", false);
+            m_animator.SetLayerWeight(4, 1);
+            m_animator.SetLayerWeight(1, 0);
+            m_animator.SetLayerWeight(2, 0);
+            m_animator.SetLayerWeight(3, 0);
         }
         if (m_targetDirection.x < 0 && m_targetDirection.y <= 1.5 && m_targetDirection.y >= -1.5)
         {
-            m_animator.SetBool("LookingLeft", true);
-            m_animator.SetBool("LookingRight", false);
-            m_animator.SetBool("LookingUp", false);
-            m_animator.SetBool("LookingDown", false);
+            m_animator.SetLayerWeight(3, 1);
+            m_animator.SetLayerWeight(1, 0);
+            m_animator.SetLayerWeight(2, 0);
+            m_animator.SetLayerWeight(4, 0);
         }
 
         if (m_targetDirection.y > 0 && m_targetDirection.x <= 1.5 && m_targetDirection.x >= -1.5)
         {
-            m_animator.SetBool("LookingUp", true);
-            m_animator.SetBool("LookingDown", false);
-            m_animator.SetBool("LookingLeft", false);
-            m_animator.SetBool("LookingRight", false);
+            m_animator.SetLayerWeight(1, 1);
+            m_animator.SetLayerWeight(2, 0);
+            m_animator.SetLayerWeight(3, 0);
+            m_animator.SetLayerWeight(4, 0);
         }
         if (m_targetDirection.y < 0 && m_targetDirection.x <= 1.5 && m_targetDirection.x >= -1.5)
         {
-            m_animator.SetBool("LookingDown", true);
-            m_animator.SetBool("LookingUp", false);
-            m_animator.SetBool("LookingLeft", false);
-            m_animator.SetBool("LookingRight", false);
+            m_animator.SetLayerWeight(2, 1);
+            m_animator.SetLayerWeight(1, 0);
+            m_animator.SetLayerWeight(3, 0);
+            m_animator.SetLayerWeight(4, 0);
         }
 
-        if(Vector2.Distance(transform.position, m_targetPosition) < 0.8)
-        {
-            m_state = States.attack;
-        }
-        else
+        if (Vector2.Distance(transform.position, m_targetPosition) < 8 && m_state == States.idle)
         {
             m_state = States.chase;
         }
 
         if (m_state == States.chase)
         {
+            if (Vector2.Distance(transform.position, m_targetPosition) < 0.8)
+            {
+                m_state = States.attack;
+            }
+
             m_step = m_speed * Time.deltaTime;
 
             transform.position = Vector2.MoveTowards(transform.position, m_targetPosition, m_step);
@@ -96,6 +95,11 @@ public class EnemyMovement : MonoBehaviour
 
         if(m_state == States.attack)
         {
+            if (Vector2.Distance(transform.position, m_targetPosition) > 1)
+            {
+                m_state = States.chase;
+            }
+
             m_attackTimer += Time.deltaTime;
 
             if(m_attackTimer >= 1)
