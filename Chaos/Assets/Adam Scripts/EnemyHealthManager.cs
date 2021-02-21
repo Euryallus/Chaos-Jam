@@ -15,12 +15,17 @@ public class EnemyHealthManager : MonoBehaviour
         m_currentHealth = m_maxHealth;
     }
 
-    public void TakeDamage()
+    public bool TakeDamage()
     {
         m_currentHealth--;
         if(m_currentHealth <= 0)
         {
             gameObject.SetActive(false);
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 }

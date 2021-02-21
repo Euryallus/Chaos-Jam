@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
-    public BoxCollider2D m_attackTrigger;
-
     public enum States
     {
         chase,
@@ -80,6 +78,15 @@ public class EnemyMovement : MonoBehaviour
             m_animator.SetBool("LookingRight", false);
         }
 
+        if(Vector2.Distance(transform.position, m_targetPosition) < 0.8)
+        {
+            m_state = States.attack;
+        }
+        else
+        {
+            m_state = States.chase;
+        }
+
         if (m_state == States.chase)
         {
             m_step = m_speed * Time.deltaTime;
@@ -96,22 +103,6 @@ public class EnemyMovement : MonoBehaviour
                 m_playerObject.GetComponent<HealthManager>().takeDamage(m_dps);
                 m_attackTimer = 0;
             }
-        }
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            m_state = States.attack;
-        }
-    }
-
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            m_state = States.chase;
         }
     }
 }
