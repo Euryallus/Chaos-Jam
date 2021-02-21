@@ -30,6 +30,17 @@ public class PlayerController : MonoBehaviour
 
     [Space]
 
+    [Header("Experience Points")]
+    public XPManager m_xpManager;
+
+    [Space]
+
+    [Header("Sounds")]
+    [Tooltip("The sound that plays when the player swings their sword.")]
+    public AudioSource m_swordSwingSound;
+
+    [Space]
+
     [Header("Animation")]
     [Tooltip("The animator for the player")]
     public Animator m_playerAnimator;
@@ -96,7 +107,10 @@ public class PlayerController : MonoBehaviour
 
         if( rayHit.collider != null)
         {
-            rayHit.collider.gameObject.GetComponent<EnemyHealthManager>( ).TakeDamage( );
+            if( rayHit.collider.gameObject.GetComponent<EnemyHealthManager>( ).TakeDamage( ))
+            {
+                m_xpManager.gainXP( );
+            }
         }
 
     }
@@ -211,6 +225,9 @@ public class PlayerController : MonoBehaviour
 
                 // Triggers the melee attack animation to play on the player
                 m_playerAnimator.SetTrigger("meleeAttack");
+
+                // Plays the sound of the player's sword being swung
+                m_swordSwingSound.Play( );
 
             }
 

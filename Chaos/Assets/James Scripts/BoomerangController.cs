@@ -31,6 +31,12 @@ public class BoomerangController : MonoBehaviour
 
     [Space]
 
+    [Header("Sounds")]
+    [Tooltip("The sound that plays whenever the player hits something.")]
+    public AudioSource m_boomerangHitSound;
+
+    [Space]
+
     [Header("Physics")]
     [Tooltip("The physics layer of the enemies.")]
     public LayerMask m_enemyLayer;
@@ -56,13 +62,14 @@ public class BoomerangController : MonoBehaviour
 
         if( m_currentTargetsColliders.Length == 0)
         {
-            Debug.Log("No targets found!");
             m_hasFoundTargets = false;
         }
         else
         {
-            Debug.Log("Found targets!");
-            sortTargetsByClosest( );
+            if (m_currentTargetsColliders.Length > 1)
+            {
+                sortTargetsByClosest();
+            }
             m_hasFoundTargets = true;
         }
     }
@@ -112,10 +119,15 @@ public class BoomerangController : MonoBehaviour
         if( Vector2.Distance( transform.position, m_currentTargetsColliders[m_currentTargetIndex].gameObject.transform.position ) <= 0 )
         {
             // Accesses the enemy's script and reduces their health
-            m_currentTargetsColliders[m_currentTargetIndex].gameObject.GetComponent<EnemyHealthManager>( ).TakeDamage( );
+            if( m_currentTargetsColliders[m_currentTargetIndex].gameObject.GetComponent<EnemyHealthManager>( ).TakeDamage( ) )
+            {
+                m_playerObject.GetComponent<XPManager>( ).gainXP( );
+            }
 
             // Incremenets the target index to move on to the next enemy in the array
             m_currentTargetIndex++;
+
+            m_boomerangHitSound.Play( );
 
             // If the end of the array has been reached, the function returns true so that the boomerang will return to the player
             if( m_currentTargetIndex >= m_currentTargetsColliders.Length)
@@ -153,8 +165,8 @@ public class BoomerangController : MonoBehaviour
     {
         if (collision.gameObject.layer == 11)
         {
-            Debug.Log("Triggered! It was: " + collision.gameObject.name);
             m_isReturning = true;
+            m_boomerangHitSound.Play( );
         }
     }
 
