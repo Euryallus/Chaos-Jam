@@ -370,6 +370,9 @@ MonoBehaviour:
   centreRoom: {fileID: 6791019275682552043, guid: ad116a78083ee7a4db05a866099469bc,
     type: 3}
   enemies: []
+  complete: 0
+  playerCharacter: {fileID: 1409937591}
+  cam: {fileID: 920782149}
 --- !u!4 &519006037
 Transform:
   m_ObjectHideFlags: 0
@@ -1195,6 +1198,12 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6791019275682552043, guid: ad116a78083ee7a4db05a866099469bc,
     type: 3}
   m_PrefabInstance: {fileID: 1270913849}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1409937591 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1808200333476484763, guid: 87795379070bfb144ae529f9d1271e97,
+    type: 3}
+  m_PrefabInstance: {fileID: 1060884302}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1564449741
 GameObject:
