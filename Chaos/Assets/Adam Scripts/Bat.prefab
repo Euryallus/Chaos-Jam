@@ -11,8 +11,6 @@ GameObject:
   - component: {fileID: 9043493206256993269}
   - component: {fileID: 9043493206256993274}
   - component: {fileID: 9043493206256993268}
-  - component: {fileID: 9043493206256993275}
-  - component: {fileID: 6006662782268622839}
   - component: {fileID: -6921175558918322937}
   m_Layer: 10
   m_Name: Bat
@@ -105,36 +103,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &9043493206256993275
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9043493206256993272}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7ce1e39d924f4248bc1adff7b7be4a8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_state: 2
-  m_speed: 1.5
-  m_dps: 1
-  m_targetDirection: {x: 0, y: 0, z: 0}
---- !u!114 &6006662782268622839
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9043493206256993272}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19273ee9e6b1f9f4c9fb141f9be68869, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_currentHealth: 1
-  m_maxHealth: 1
 --- !u!61 &-6921175558918322937
 BoxCollider2D:
   m_ObjectHideFlags: 0
