@@ -9,9 +9,15 @@ public class CharacterCamera : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-
         if(collision.CompareTag("RoomSwitch"))
         {
+            Debug.Log(collision.transform.parent.gameObject.name);
+
+            if(collision.transform.parent.gameObject.GetComponent<miniMapCover>())
+            {
+                collision.transform.parent.gameObject.GetComponent<miniMapCover>().uncover();
+            }
+
             camera.focus = collision.transform.parent.gameObject;
         }
     }
