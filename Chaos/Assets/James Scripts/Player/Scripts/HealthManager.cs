@@ -20,6 +20,9 @@ public class HealthManager : MonoBehaviour
     [Tooltip("The player's current health.")]
     public int m_currentHealth;
 
+    [Tooltip("The sound that plays when the player dies.")]
+    public AudioSource m_playerDeathSound;
+
     [SerializeField]
     [Tooltip("The slider that represents the player's health points.")]
     public Slider m_healthBar;
@@ -71,6 +74,8 @@ public class HealthManager : MonoBehaviour
             if (m_currentHealth <= 0)
             {
                 m_playerController.enterDeathState();
+
+                m_playerDeathSound.Play( );
 
                 StartCoroutine(waitToFade());
 
