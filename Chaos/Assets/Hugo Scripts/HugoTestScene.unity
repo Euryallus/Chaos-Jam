@@ -171,7 +171,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.024830906, g: 0.027478645, b: 0.05660379, a: 0.9490196}
+  m_Color: {r: 0.024830906, g: 0.027478645, b: 0.05660379, a: 0.9098039}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -319,7 +319,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.024830906, g: 0.027478645, b: 0.05660379, a: 0.9490196}
+  m_Color: {r: 0.024830906, g: 0.027478645, b: 0.05660379, a: 0.9098039}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -482,7 +482,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.09433961, g: 0.09433961, b: 0.09433961, a: 0}
+  m_BackGroundColor: {r: 0.03529412, g: 0.039215688, b: 0.06666667, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -996,7 +996,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.024830906, g: 0.027478645, b: 0.05660379, a: 0.9490196}
+  m_Color: {r: 0.024830906, g: 0.027478645, b: 0.05660379, a: 0.9098039}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -1076,7 +1076,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.024830906, g: 0.027478645, b: 0.05660379, a: 0.9490196}
+  m_Color: {r: 0.024830906, g: 0.027478645, b: 0.05660379, a: 0.9098039}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
