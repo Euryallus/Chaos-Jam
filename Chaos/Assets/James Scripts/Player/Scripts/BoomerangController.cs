@@ -118,10 +118,18 @@ public class BoomerangController : MonoBehaviour
 
         if( Vector2.Distance( transform.position, m_currentTargetsColliders[m_currentTargetIndex].gameObject.transform.position ) <= 0 )
         {
-            // Accesses the enemy's script and reduces their health
-            if( m_currentTargetsColliders[m_currentTargetIndex].gameObject.GetComponent<EnemyHealthManager>( ).TakeDamage( ) )
+
+            if( m_currentTargetsColliders[m_currentTargetIndex].gameObject.GetComponent<EnemyHealthManager>() != null )
             {
-                m_playerObject.GetComponent<XPManager>( ).gainXP( );
+                // Accesses the enemy's script and reduces their health
+                if (m_currentTargetsColliders[m_currentTargetIndex].gameObject.GetComponent<EnemyHealthManager>().TakeDamage())
+                {
+                    m_playerObject.GetComponent<XPManager>().gainXP();
+                }
+            }
+            else if( m_currentTargetsColliders[m_currentTargetIndex].gameObject.GetComponent<BreakableObject>() != null)
+            {
+                m_currentTargetsColliders[m_currentTargetIndex].gameObject.GetComponent<BreakableObject>().breakOpen();
             }
 
             // Incremenets the target index to move on to the next enemy in the array

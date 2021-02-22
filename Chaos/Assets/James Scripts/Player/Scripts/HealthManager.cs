@@ -48,12 +48,6 @@ public class HealthManager : MonoBehaviour
 
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public IEnumerator waitToFade( )
     {
 
@@ -87,6 +81,19 @@ public class HealthManager : MonoBehaviour
     {
 
         m_currentHealth = m_maxHealth;
+
+        m_healthBar.value = m_currentHealth;
+
+    }
+
+    public void restoreHealth( int healthToRestore)
+    {
+        m_currentHealth += healthToRestore;
+
+        if( m_currentHealth >= m_maxHealth)
+        {
+            m_currentHealth = m_maxHealth;
+        }
 
         m_healthBar.value = m_currentHealth;
 
