@@ -5037,7 +5037,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Sprites by  Vryell
+  m_Text: Sprites by Vryell
 --- !u!222 &393869380
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5405,16 +5405,16 @@ MonoBehaviour:
     m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 6
-    m_MaxSize: 80
+    m_MaxSize: 90
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'DUNGEON
+  m_Text: 'Labyrinth
 
-    DELVER'
+    Sprinter'
 --- !u!222 &882449564
 CanvasRenderer:
   m_ObjectHideFlags: 0
