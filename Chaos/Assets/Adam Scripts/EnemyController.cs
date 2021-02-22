@@ -13,18 +13,18 @@ public class EnemyController : MonoBehaviour
     }
 
     [SerializeField]
-    private States      m_state = States.idle;
+    protected States    m_state = States.idle;
 
     [SerializeField]
-    private float       m_speed = 1.5f;
+    private float       m_speed = 100;
 
     [SerializeField]
     private int         m_dps = 1;
 
     private GameObject  m_playerObject;
-    private float       m_attackTimer;
-    private Vector2     m_targetPosition;
-    
+    protected float     m_attackTimer;
+    protected Vector2   m_targetPosition;
+
     [SerializeField]
     private Vector2     m_targetDirection;
     
@@ -39,6 +39,8 @@ public class EnemyController : MonoBehaviour
         m_animator = GetComponent<Animator>();
 
         m_rigidbody = GetComponent<Rigidbody2D>();
+
+        m_animator.SetLayerWeight(2, 1);
     }
 
     // Update is called once per frame
@@ -50,10 +52,7 @@ public class EnemyController : MonoBehaviour
 
         Animate();
 
-        if (Vector2.Distance(transform.position, m_targetPosition) < 8 && m_state == States.idle)
-        {
-            m_state = States.chase;
-        }
+        DetectPlayer();
 
         if (m_state == States.chase)
         {
@@ -61,6 +60,8 @@ public class EnemyController : MonoBehaviour
             {
                 m_state = States.attack;
             }
+
+            m_animator.SetBool("Active", true);
 
             m_rigidbody.velocity = m_targetDirection * m_speed * Time.deltaTime;
         }
@@ -90,34 +91,52 @@ public class EnemyController : MonoBehaviour
 
     public virtual void Animate()
     {
-        if (m_targetDirection.x > 0 && m_targetDirection.y <= 1.5 && m_targetDirection.y >= -1.5)
-        {
-            m_animator.SetLayerWeight(4, 1);
-            m_animator.SetLayerWeight(1, 0);
-            m_animator.SetLayerWeight(2, 0);
-            m_animator.SetLayerWeight(3, 0);
-        }
-        if (m_targetDirection.x < 0 && m_targetDirection.y <= 1.5 && m_targetDirection.y >= -1.5)
-        {
-            m_animator.SetLayerWeight(3, 1);
-            m_animator.SetLayerWeight(1, 0);
-            m_animator.SetLayerWeight(2, 0);
-            m_animator.SetLayerWeight(4, 0);
-        }
-
+        // Up
         if (m_targetDirection.y > 0 && m_targetDirection.x <= 1.5 && m_targetDirection.x >= -1.5)
         {
+            ResetAnimatorLayers();
+
             m_animator.SetLayerWeight(1, 1);
-            m_animator.SetLayerWeight(2, 0);
-            m_animator.SetLayerWeight(3, 0);
-            m_animator.SetLayerWeight(4, 0);
         }
+
+        //Down
         if (m_targetDirection.y < 0 && m_targetDirection.x <= 1.5 && m_targetDirection.x >= -1.5)
         {
+            ResetAnimatorLayers();
+
             m_animator.SetLayerWeight(2, 1);
-            m_animator.SetLayerWeight(1, 0);
-            m_animator.SetLayerWeight(3, 0);
-            m_animator.SetLayerWeight(4, 0);
+        }
+
+        //Left
+        if (m_targetDirection.x < 0 && m_targetDirection.y <= 1.5 && m_targetDirection.y >= -1.5)
+        {
+            ResetAnimatorLayers();
+
+            m_animator.SetLayerWeight(3, 1);
+        }
+
+        //Right
+        if (m_targetDirection.x > 0 && m_targetDirection.y <= 1.5 && m_targetDirection.y >= -1.5)
+        {
+            ResetAnimatorLayers();
+
+            m_animator.SetLayerWeight(4, 1);
+        }
+    }
+
+    public virtual void DetectPlayer()
+    {
+        if (Vector2.Distance(transform.position, m_targetPosition) < 8 && m_state == States.idle)
+        {
+            m_state = States.chase;
+        }
+    }
+
+    private void ResetAnimatorLayers()
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            m_animator.SetLayerWeight(i, 0);
         }
     }
 }
