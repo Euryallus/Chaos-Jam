@@ -26,7 +26,7 @@ public class EnemyController : MonoBehaviour
     protected Vector2   m_targetPosition;
 
     [SerializeField]
-    private Vector2     m_targetDirection;
+    protected Vector2     m_targetDirection;
     
     private Animator    m_animator;
     private Rigidbody2D m_rigidbody;

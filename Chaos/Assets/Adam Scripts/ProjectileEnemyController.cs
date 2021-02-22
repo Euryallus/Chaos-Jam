@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ProjectileEnemyController : EnemyController
 {
+    public EnemyProjectile m_projectile;
 
     public override void DetectPlayer()
     {
@@ -24,7 +25,8 @@ public class ProjectileEnemyController : EnemyController
 
         if (m_attackTimer >= 3)
         {
-            GetComponentInChildren<EnemyProjectile>().Fire(m_targetPosition.normalized);
+            m_projectile.gameObject.SetActive(true);
+            m_projectile.Fire(m_targetDirection);
             m_attackTimer = 0;
         }
     }

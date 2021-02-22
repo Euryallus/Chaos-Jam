@@ -23,10 +23,10 @@ public class EnemyProjectile : MonoBehaviour
         
     }
 
-    public void Fire(Vector2 velocity)
+    public void Fire(Vector2 direction)
     {
         gameObject.SetActive(true);
-        m_rigidbody.velocity = velocity;
+        m_rigidbody.velocity = direction * m_speed * Time.deltaTime;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
