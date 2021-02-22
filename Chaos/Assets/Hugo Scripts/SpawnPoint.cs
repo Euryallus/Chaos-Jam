@@ -79,6 +79,7 @@ public class SpawnPoint : MonoBehaviour
     {
         GameObject collisionObj = collision.gameObject;
 
+
         if(collisionObj.GetComponent<SpawnPoint>())
         {
             if(collisionObj.GetComponent<SpawnPoint>().direction == directionSpawn.centre || collisionObj.GetComponent<SpawnPoint>().direction == directionSpawn.middle)
@@ -109,6 +110,8 @@ public class SpawnPoint : MonoBehaviour
                 }
             }
         }
+
+        Destroy(gameObject);
 
     }
 

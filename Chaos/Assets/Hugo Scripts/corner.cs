@@ -8,7 +8,11 @@ public class corner : MonoBehaviour
     {
         if(collision.CompareTag("RoomSwitch"))
         {
-            Debug.Log(collision.name);
+            Destroy(gameObject);
+        }
+
+        if(collision.CompareTag("SpawnPoint"))
+        {
             Destroy(gameObject);
         }
     }
