@@ -70,6 +70,9 @@ public class PlayerController : MonoBehaviour
     [Tooltip("The layer on which the enemies sit.")]
     public LayerMask m_enemyLayer;
 
+    [Tooltip("The layer that the player sits on, used in raycasts to ignore the player.")]
+    public LayerMask m_playerLayer;
+
     #endregion
 
     #region PrivateVariables

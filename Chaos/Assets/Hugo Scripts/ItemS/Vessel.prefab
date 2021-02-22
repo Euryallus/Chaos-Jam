@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5978900333773742810}
   - component: {fileID: 5833368636520274692}
   - component: {fileID: 8649950732744841917}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Vessel
   m_TagString: Untagged
   m_Icon: {fileID: 0}

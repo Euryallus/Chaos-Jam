@@ -114,6 +114,11 @@ public class BoomerangController : MonoBehaviour
     private bool attackEnemies( )
     {
 
+        if( m_currentTargetsColliders[m_currentTargetIndex].gameObject.GetComponent<EnemyHealthManager>() == null)
+        {
+            m_currentTargetIndex++;
+        }
+
         transform.position = Vector2.MoveTowards( transform.position, m_currentTargetsColliders[m_currentTargetIndex].gameObject.transform.position, m_moveSpeed * Time.deltaTime );
 
         if( Vector2.Distance( transform.position, m_currentTargetsColliders[m_currentTargetIndex].gameObject.transform.position ) <= 0 )
