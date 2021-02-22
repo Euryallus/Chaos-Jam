@@ -136,9 +136,14 @@ public class PlayerController : MonoBehaviour
 
         if( rayHit.collider != null)
         {
-            if( rayHit.collider.gameObject.GetComponent<EnemyHealthManager>( ).TakeDamage( ))
+            if( rayHit.collider.gameObject.GetComponent<EnemyHealthManager>( ) != null )
             {
+                rayHit.collider.gameObject.GetComponent<EnemyHealthManager>( ).TakeDamage( );
                 m_xpManager.gainXP( );
+            }
+            else if( rayHit.collider.gameObject.GetComponent<BreakableObject>( ) != null )
+            {
+                rayHit.collider.gameObject.GetComponent<BreakableObject>( ).breakOpen( );
             }
         }
 
