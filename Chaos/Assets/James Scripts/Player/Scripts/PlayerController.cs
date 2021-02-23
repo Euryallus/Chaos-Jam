@@ -167,8 +167,6 @@ public class PlayerController : MonoBehaviour
 
         StartCoroutine( waitToFade( ) );
 
-        m_currentPlayerState = playerStates.alive;
-
     }
 
     public void throwBoomerang( )
@@ -301,6 +299,8 @@ public class PlayerController : MonoBehaviour
         m_hudCanvas.SetActive(true);
 
         m_blackoutScreen.m_fadingOut = true;
+
+        m_currentPlayerState = playerStates.alive;
 
     }
 

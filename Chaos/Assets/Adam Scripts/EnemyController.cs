@@ -126,9 +126,13 @@ public class EnemyController : MonoBehaviour
 
     public virtual void DetectPlayer()
     {
-        if (Vector2.Distance(transform.position, m_targetPosition) < 8 && m_state == States.idle)
+        if (Vector2.Distance(transform.position, m_targetPosition) < 8 && m_state == States.idle && m_playerObject.GetComponent<PlayerController>().m_currentPlayerState == PlayerController.playerStates.alive)
         {
             m_state = States.chase;
+        }
+        else
+        {
+            m_state = States.idle;
         }
     }
 
